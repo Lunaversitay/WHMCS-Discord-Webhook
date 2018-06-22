@@ -62,12 +62,6 @@ function createRequest($hook_content){
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($hook_content));
-
-    $output = curl_exec($ch);
-
-    echo curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    print_r($output);
-
     curl_close($ch);
 }
 
