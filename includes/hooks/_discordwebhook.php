@@ -63,9 +63,8 @@ function createRequest($hook_content){
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($hook_content));
 
-    # Uncomment these if ur having troubles
-    #$output = curl_exec($ch);
-    #logModuleCall('Discord-WHMCS'. 'Shot response to endpoint'. json_encode($hook_content). print_r($output, true));
+    $output = curl_exec($ch);
+    logModuleCall('Discord-WHMCS', 'Shot response to endpoint', json_encode($hook_content), print_r($output, true));
 
     curl_close($ch);
 }
