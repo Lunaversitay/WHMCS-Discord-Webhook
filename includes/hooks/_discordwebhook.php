@@ -2,6 +2,9 @@
 if (!defined("WHMCS"))
     die("This file cannot be accessed directly");
 
+// Your discord endpoint
+$GLOBALS['hook_webhook_endpoint'] = "";
+
 // Base url for your WHMCS admin portal
 // If there is no url, this will NOT work
 $GLOBALS['hook_baseurl'] = "https://whmcs.com/portal/admin"; // don't add the / at the end
@@ -55,7 +58,7 @@ function createRequest($hook_content){
         'multipart/form-data',
         'application/x-www-form-urlencoded'
     ]);
-    curl_setopt($ch, CURLOPT_URL, ""); // Introduce your webhook endpoint HERE
+    curl_setopt($ch, CURLOPT_URL, $GLOBALS['hook_webhook_endpoint']);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($hook_content));
