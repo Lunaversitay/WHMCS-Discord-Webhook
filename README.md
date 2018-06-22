@@ -6,11 +6,11 @@ There are already a couple of these out there but this one doesn't send out info
 ## What does it do?
 
 Mainly just sends out nice embedded notifications from tickets ranging from:
-Tickets being opened
-User replies / Admin Replies
-Notes being added
-Ticket statuses being changed
-Ticket priority being changed
+- Tickets being opened
+- User replies / Admin Replies
+- Notes being added
+- Ticket statuses being changed
+- Ticket priority being changed
 
 Pretty much anything ticket related on here: https://developers.whmcs.com/hooks-reference/ticket/
 (Some isn't included cause lack of info or I just haven't done it yet)
