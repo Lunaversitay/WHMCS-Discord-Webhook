@@ -273,8 +273,8 @@ if($show_ticketprioritychange === true):
                     'title' => "Ticket #".$vars['ticketid'],
                     'fields' => [
                         [
-                            'name' => "Status changed to...",
-                            'value' => $vars['status'],
+                            'name' => "Priority changed to...",
+                            'value' => $vars['priority'],
                             'inline' => true,
                         ],
                     ],
