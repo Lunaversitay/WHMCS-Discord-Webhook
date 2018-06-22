@@ -4,14 +4,14 @@ if (!defined("WHMCS"))
 
 // Base url for your WHMCS admin portal
 // If there is no url, this will NOT work
-$hook_baseurl = "https://whmcs.com/portal/admin"; // don't add the / at the end
+$GLOBALS['hook_baseurl'] = "https://whmcs.com/portal/admin"; // don't add the / at the end
 
 // Username of the webhook (e.g. https://i.avasdemon.rocks/DiscordPTB_2018-06-21_13-14-43.png)
-$hook_username = "Crident Support Notification";
+$GLOBALS['hook_username'] = "Crident Support Notification";
 
 // 0xhex colors for the left borders - default are boobstrap colors
 // ( https://getbootstrap.com/docs/4.0/utilities/colors/#background-color )
-$hook_colors = [
+$GLOBALS['hook_colors'] = [
     "success" => 0x28a745,
     "danger" => 0xdc3545,
     "warning" => 0xffc107,
@@ -59,6 +59,12 @@ function createRequest($hook_content){
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($hook_content));
+
+    $output = curl_exec($ch);
+
+    echo curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    print_r($output);
+
     curl_close($ch);
 }
 
@@ -72,10 +78,10 @@ function createRequest($hook_content){
 if($show_openedtickets === true):
     add_hook('TicketOpen', 1, function($vars) {
         $hook_content = [
-            'username' => $hook_username,
+            'username' => $GLOBALS['test'],
             'embeds' => [
                 [
-                    'url' => "$hook_baseurl/supporttickets.php?action=view&id=".$vars['ticketid'],
+                    'url' => $GLOBALS['hook_baseurl']."/supporttickets.php?action=view&id=".$vars['ticketid'],
                     'title' => "Ticket #".vars['ticketid'],
                     'type' => 'rich', // discord is known for screwing their API, so let's add a fallback incase
                     'description' => trim_string($vars['message']),
@@ -91,7 +97,7 @@ if($show_openedtickets === true):
                             'inline' => true,
                         ],
                     ],
-                    'color' =>  $hook_colors['success'],
+                    'color' =>  $GLOBALS['hook_colors']['success'],
                     'timestamp' => date(DateTime::ISO8601),
                     'footer' => [
                         'text' => 'By Lunaversity',
@@ -114,10 +120,10 @@ endif;
 if($show_userreplies === true):
     add_hook('TicketUserReply', 1, function($vars) {
         $hook_content = [
-            'username' => $hook_username,
+            'username' => $GLOBALS['hook_username'],
             'embeds' => [
                 [
-                    'url' => "$hook_baseurl/supporttickets.php?action=view&id=".$vars['ticketid'],
+                    'url' => $GLOBALS['hook_baseurl']."/supporttickets.php?action=view&id=".$vars['ticketid'],
                     'title' => "Ticket #".vars['ticketid'],
                     'type' => 'rich', // discord is known for screwing their API, so let's add a fallback incase
                     'description' => trim_string($vars['message']),
@@ -138,7 +144,7 @@ if($show_userreplies === true):
                             'inline' => true,
                         ],
                     ],
-                    'color' =>  $hook_colors['primary'],
+                    'color' =>  $GLOBALS['hook_colors']['primary'],
                     'timestamp' => date(DateTime::ISO8601),
                     'footer' => [
                         'text' => 'By Lunaversity',
@@ -161,14 +167,14 @@ endif;
 if($show_closedtickets === true):
     add_hook('TicketClose', 1, function($vars) {
         $hook_content = [
-            'username' => $hook_username,
+            'username' => $GLOBALS['hook_username'],
             'embeds' => [
                 [
-                    'url' => "$hook_baseurl/supporttickets.php?action=view&id=".$vars['ticketid'],
+                    'url' => $GLOBALS['hook_baseurl']."/supporttickets.php?action=view&id=".$vars['ticketid'],
                     'title' => "Ticket #".vars['ticketid'],
                     'description' => 'Ticket was closed...', // whmcs doesn't give any other info than ticketid srry
                     'type' => 'rich',
-                    'color' =>  $hook_colors['danger'],
+                    'color' =>  $GLOBALS['hook_colors']['danger'],
                     'timestamp' => date(DateTime::ISO8601),
                     'footer' => [
                         'text' => 'By Lunaversity',
@@ -191,16 +197,16 @@ endif;
 if($show_notereply === true):
     add_hook('TicketAddNote', 1, function($vars) {
         $hook_content = [
-            'username' => $hook_username,
+            'username' => $GLOBALS['hook_username'],
             'embeds' => [
                 [
-                    'url' => "$hook_baseurl/supporttickets.php?action=view&id=".$vars['ticketid'],
+                    'url' => $GLOBALS['hook_baseurl']."/supporttickets.php?action=view&id=".$vars['ticketid'],
                     'title' => "Ticket #".vars['ticketid'],
                     'description' => trim_string($vars['message']),
                     // No point in adding anything else since WHMCS only provides the admins ID (wtf even)
                     // Could do a simple query but this is purely hook based
                     'type' => 'rich',
-                    'color' =>  $hook_colors['primary'],
+                    'color' =>  $GLOBALS['hook_colors']['primary'],
                     'timestamp' => date(DateTime::ISO8601),
                     'footer' => [
                         'text' => 'By Lunaversity',
@@ -223,10 +229,10 @@ endif;
 if($show_ticketstatuschange === true):
     add_hook('TicketStatusChange', 1, function($vars) {
         $hook_content = [
-            'username' => $hook_username,
+            'username' => $GLOBALS['hook_username'],
             'embeds' => [
                 [
-                    'url' => "$hook_baseurl/supporttickets.php?action=view&id=".$vars['ticketid'],
+                    'url' => $GLOBALS['hook_baseurl']."/supporttickets.php?action=view&id=".$vars['ticketid'],
                     'title' => "Ticket #".vars['ticketid'],
                     'fields' => [
                         [
@@ -236,7 +242,7 @@ if($show_ticketstatuschange === true):
                         ],
                     ],
                     'type' => 'rich',
-                    'color' =>  $hook_colors['info'],
+                    'color' =>  $GLOBALS['hook_colors']['info'],
                     'timestamp' => date(DateTime::ISO8601),
                     'footer' => [
                         'text' => 'By Lunaversity',
@@ -259,10 +265,10 @@ endif;
 if($show_ticketprioritychange === true):
     add_hook('TicketPriorityChange', 1, function($vars) {
         $hook_content = [
-            'username' => $hook_username,
+            'username' => $GLOBALS['hook_username'],
             'embeds' => [
                 [
-                    'url' => "$hook_baseurl/supporttickets.php?action=view&id=".$vars['ticketid'],
+                    'url' => $GLOBALS['hook_baseurl']."/supporttickets.php?action=view&id=".$vars['ticketid'],
                     'title' => "Ticket #".vars['ticketid'],
                     'fields' => [
                         [
@@ -272,7 +278,7 @@ if($show_ticketprioritychange === true):
                         ],
                     ],
                     'type' => 'rich',
-                    'color' =>  $hook_colors['info'],
+                    'color' =>  $GLOBALS['hook_colors']['info'],
                     'timestamp' => date(DateTime::ISO8601),
                     'footer' => [
                         'text' => 'By Lunaversity',
@@ -295,10 +301,10 @@ endif;
 if($show_ticketflagged === true):
     add_hook('TicketFlagged', 1, function($vars) {
         $hook_content = [
-            'username' => $hook_username,
+            'username' => $GLOBALS['hook_username'],
             'embeds' => [
                 [
-                    'url' => "$hook_baseurl/supporttickets.php?action=view&id=".$vars['ticketid'],
+                    'url' => $GLOBALS['hook_baseurl']."/supporttickets.php?action=view&id=".$vars['ticketid'],
                     'title' => "Ticket #".vars['ticketid'],
                     'fields' => [
                         [
@@ -308,7 +314,7 @@ if($show_ticketflagged === true):
                         ],
                     ],
                     'type' => 'rich',
-                    'color' =>  $hook_colors['info'],
+                    'color' =>  $GLOBALS['hook_colors']['info'],
                     'timestamp' => date(DateTime::ISO8601),
                     'footer' => [
                         'text' => 'By Lunaversity',
