@@ -29,6 +29,7 @@ $show_userreplies = true; // When the user replies to a ticket
 $show_notereply = true; // When someone makes a note on a ticket
 $show_ticketstatuschange = true; // When the ticket status gets changed
 $show_ticketprioritychange = true; // When the ticket priority gets changed
+$show_ticketflagged = true; // When the ticket's flag is changed
 
 /**
  * Trims strings that go over 100
