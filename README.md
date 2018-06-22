@@ -14,3 +14,5 @@ Mainly just sends out nice embedded notifications from tickets ranging from:
 
 Pretty much anything ticket related on here: https://developers.whmcs.com/hooks-reference/ticket/
 (Some isn't included cause lack of info or I just haven't done it yet)
+
+Thanks to Crident and @TrixterTheTux for testing this (I don't have WHMCS myself so that's y u see 2000 commits)
