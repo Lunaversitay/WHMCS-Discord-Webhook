@@ -63,8 +63,9 @@ function createRequest($hook_content){
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($hook_content));
 
-    $output = curl_exec($ch);
-    logModuleCall('Discord-WHMCS'. 'Shot response to endpoint'. json_ecode($hook_content). print_r($output, true));
+    # Uncomment these if ur having troubles
+    #$output = curl_exec($ch);
+    #logModuleCall('Discord-WHMCS'. 'Shot response to endpoint'. json_encode($hook_content). print_r($output, true));
 
     curl_close($ch);
 }
@@ -83,7 +84,7 @@ if($show_openedtickets === true):
             'embeds' => [
                 [
                     'url' => $GLOBALS['hook_baseurl']."/supporttickets.php?action=view&id=".$vars['ticketid'],
-                    'title' => "Ticket #".$vars['ticketid'],
+                    'title' => "Ticket #".$vars['ticketid']."-".$vars['subject'],
                     'type' => 'rich', // discord is known for screwing their API, so let's add a fallback incase
                     'description' => trim_string($vars['message']),
                     'fields' => [
