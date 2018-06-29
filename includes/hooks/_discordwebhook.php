@@ -101,10 +101,6 @@ if($show_openedtickets === true):
                     ],
                     'color' =>  $GLOBALS['hook_colors']['success'],
                     'timestamp' => date(DateTime::ISO8601),
-                    'footer' => [
-                        'text' => 'By Lunaversity',
-                        'icon_url' => 'https://avasdemon.rocks/lunaversity.gif'
-                    ]
                 ],
             ]
         ];
@@ -148,10 +144,6 @@ if($show_userreplies === true):
                     ],
                     'color' =>  $GLOBALS['hook_colors']['primary'],
                     'timestamp' => date(DateTime::ISO8601),
-                    'footer' => [
-                        'text' => 'By Lunaversity',
-                        'icon_url' => 'https://avasdemon.rocks/lunaversity.gif'
-                    ]
                 ],
             ]
         ];
@@ -178,10 +170,6 @@ if($show_closedtickets === true):
                     'type' => 'rich',
                     'color' =>  $GLOBALS['hook_colors']['danger'],
                     'timestamp' => date(DateTime::ISO8601),
-                    'footer' => [
-                        'text' => 'By Lunaversity',
-                        'icon_url' => 'https://avasdemon.rocks/lunaversity.gif'
-                    ]
                 ],
             ]
         ];
@@ -198,22 +186,22 @@ endif;
  */
 if($show_notereply === true):
     add_hook('TicketAddNote', 1, function($vars) {
+        $parse_admin = localAPI('GetAdminDetails', [], $vars['adminid']);
         $hook_content = [
             'username' => $GLOBALS['hook_username'],
             'embeds' => [
                 [
+                    'author' => [
+                        'name' => $parse_admin['name'],
+                        'url' => $GLOBALS['base_url'],
+                        'icon_url' => 'https://cdn.discordapp.com/attachments/462354012210069534/462359437298892811/pepoHappy.png',
+                    ],
                     'url' => $GLOBALS['hook_baseurl']."/supporttickets.php?action=view&id=".$vars['ticketid'],
-                    'title' => "Ticket #".$vars['ticketid'],
+                    'title' => "Ticket Note #".$vars['ticketid'],
                     'description' => trim_string($vars['message']),
-                    // No point in adding anything else since WHMCS only provides the admins ID (wtf even)
-                    // Could do a simple query but this is purely hook based
                     'type' => 'rich',
-                    'color' =>  $GLOBALS['hook_colors']['primary'],
+                    'color' =>  $GLOBALS['hook_colors']['warning'],
                     'timestamp' => date(DateTime::ISO8601),
-                    'footer' => [
-                        'text' => 'By Lunaversity',
-                        'icon_url' => 'https://avasdemon.rocks/lunaversity.gif'
-                    ]
                 ],
             ]
         ];
@@ -246,10 +234,6 @@ if($show_ticketstatuschange === true):
                     'type' => 'rich',
                     'color' =>  $GLOBALS['hook_colors']['info'],
                     'timestamp' => date(DateTime::ISO8601),
-                    'footer' => [
-                        'text' => 'By Lunaversity',
-                        'icon_url' => 'https://avasdemon.rocks/lunaversity.gif'
-                    ]
                 ],
             ]
         ];
@@ -282,10 +266,6 @@ if($show_ticketprioritychange === true):
                     'type' => 'rich',
                     'color' =>  $GLOBALS['hook_colors']['info'],
                     'timestamp' => date(DateTime::ISO8601),
-                    'footer' => [
-                        'text' => 'By Lunaversity',
-                        'icon_url' => 'https://avasdemon.rocks/lunaversity.gif'
-                    ]
                 ],
             ]
         ];
@@ -318,10 +298,6 @@ if($show_ticketflagged === true):
                     'type' => 'rich',
                     'color' =>  $GLOBALS['hook_colors']['info'],
                     'timestamp' => date(DateTime::ISO8601),
-                    'footer' => [
-                        'text' => 'By Lunaversity',
-                        'icon_url' => 'https://avasdemon.rocks/lunaversity.gif'
-                    ]
                 ],
             ]
         ];
