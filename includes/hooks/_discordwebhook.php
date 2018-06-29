@@ -193,8 +193,8 @@ if($show_notereply === true):
                 [
                     'author' => [
                         'name' => $parse_admin['name'],
-                        'url' => $GLOBALS['base_url'],
-                        'icon_url' => 'https://cdn.discordapp.com/attachments/462354012210069534/462359437298892811/pepoHappy.png',
+                        'url' => $GLOBALS['base_url'], // Optional but proven helpful
+                        'icon_url' => 'https://cdn.discordapp.com/attachments/462354012210069534/462359437298892811/pepoHappy.png', // Also optional :(
                     ],
                     'url' => $GLOBALS['hook_baseurl']."/supporttickets.php?action=view&id=".$vars['ticketid'],
                     'title' => "Ticket Note #".$vars['ticketid'],
