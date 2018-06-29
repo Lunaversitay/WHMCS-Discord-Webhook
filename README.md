@@ -6,13 +6,14 @@ There are already a couple of these out there but this one doesn't send out info
 ## What does it do?
 
 Mainly just sends out nice embedded notifications from tickets ranging from:
-- Tickets being opened
+- Tickets being opened / closed
 - User replies / Admin Replies
 - Notes being added
 - Ticket statuses being changed
 - Ticket priority being changed
+- Tickets being flagged
 
 Pretty much anything ticket related on here: https://developers.whmcs.com/hooks-reference/ticket/
-(Some isn't included cause lack of info or I just haven't done it yet)
+(I might add more stuff later considering WHMCS has localAPI() but that'll be later on if requested)
 
 Thanks to Crident and @TrixterTheTux for testing this (I don't have WHMCS myself so that's y u see 2000 commits)
